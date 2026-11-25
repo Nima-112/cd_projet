@@ -20,7 +20,7 @@ pipeline {
         stage('Téléchargement de la Release') {
             steps {
                 bat """
-                    curl -u %NEXUS_USER%:%NEXUS_PASSWORD% ^
+                    curl -u %NEXUS_USER%:%NEXUS_PASSWORD_PSW%  ^
                     -o Release.zip ^
                     %NEXUS_URL%
                 """
