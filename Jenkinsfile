@@ -94,11 +94,15 @@ pipeline {
     
     post {
         always {
-            script {
-                // Évite l'erreur "hudson.FilePath is missing"
+        script {
+            // Vérifie qu'on est bien dans un contexte avec workspace
+            if (getContext(hudson.FilePath)) {
                 if (fileExists('Release.zip')) {
                     archiveArtifacts artifacts: 'Release.zip', fingerprint: true
                 }
+            } else {
+                echo "Pas de workspace disponible, archivage ignoré."
+            }
             }
         }
         success {
